@@ -1,6 +1,6 @@
 <?php
 include "includes/header.php";
-?>
+?> 
 <script>
 document.title = "Jesus Made This - Frequently Asked Questions (FAQ)";
 </script>
