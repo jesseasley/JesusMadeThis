@@ -1,0 +1,59 @@
+img        
+{  
+	border: 1px solid #000000
+}
+body         
+{ 
+	font-family: Arial; 
+	color: #000080; 
+	font-size: 8pt; 
+	font-weight: bold 
+}
+.bodytext
+{ 
+	font-family: Georgia; 
+	color: #000080; 
+	font-size: 12pt; 
+	font-weight: bold 
+}
+.signature
+{ 
+	font-family: Georgia; 
+	color: #000080; 
+	font-size: 7pt; 
+	font-weight: bold 
+}
+.privacy
+{ 
+	font-family: Georgia; 
+	color: #000080; 
+	font-size: 10pt; 
+}
+A#menus
+{
+    border-style:outset; 
+    border-width:1px; 
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 10pt;
+    height: 32px;
+    WIDTH: 180px;
+    COLOR: #030538 ;
+    FONT-FAMILY: Arial;
+    TEXT-ALIGN: center;
+    TEXT-DECORATION: none; 
+    vertical-align:middle; 
+    background-image:url('../images/button_background.jpg'); 
+    padding-top:7px
+}
+a:hover#menus
+{
+    border-style:outset; 
+    border-width:1px; 
+    COLOR: #FFF0E5;
+}
+div#wn	
+{ 
+    position:relative; 
+    width:684px; height:75px; 
+    overflow:hidden;	
+}

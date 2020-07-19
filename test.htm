@@ -1,0 +1,190 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Jesus Made This</title>
+<link rel="stylesheet" type="text/css" href="css/style.css">
+
+<script src="js/dw_event.js" type="text/javascript"></script>
+<script src="js/dw_scroll.js" type="text/javascript"></script>
+<script src="js/scroll_controls.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+function init_dw_Scroll() {
+    var wndo = new dw_scrollObj('wn', 'lyr1', 't1');
+    wndo.setUpScrollControls('scrollLinks');
+}
+function loadpic(pic)
+{
+	document.all.bigpic.innerHTML="<img src=" + pic + ">";
+}
+function editpic(pic)
+{
+	document.all.postpic.value=pic;
+	http = new ActiveXObject("Microsoft.XMLHTTP");
+	http.open("GET", "http://localhost/clients/jesusmadethis/getrecord.php?action=get&image=" + pic, true);
+	http.send(null);
+	while (!(http.readyState == 4))
+	{;}
+	
+}
+</script>
+
+</head>
+
+<body background="images/concrete3.jpg">
+
+<table border="0" width="100%" cellspacing="0" cellpadding="0">
+	<tr>
+		<td colspan="2" height="104">
+		<p align="center"><a href="default.php"><img src="images/logo.jpg" width=800 height=67/></a>&nbsp;<br>
+&nbsp;</td>
+	</tr>
+	<tr>
+		<td width="15%" valign="top">
+		<table><tr><td>
+		<table border="0" width="101%" cellspacing="4" cellpadding=0 bgcolor="#C2A569">
+			<tr>
+				<td><a href="default.php" title="See Jesus' Bio" id="menus">About Jesus</a></td>
+			</tr>
+			<tr>
+				<td><a href="stain.php" id="menus" title="See Examples of Stained Concrete">Stained Concrete</a></td>
+			</tr>
+			<tr>
+				<td><a href="overlay.php" id="menus" title="See Examples of Overlays">Overlay</a></td>
+			</tr>
+			<tr>
+				<td><a href="pool.php" id="menus" title="See Examples of Pool Features & Waterfalls">Pool Features & Waterfalls</a></td>
+			</tr>
+			<tr>
+				<td><a href="wall.php" id="menus" title="See Examples of Retaining Walls">Retaining Wall</a></td>
+			</tr>
+			<tr>
+				<td><a href="stamp.php" id="menus" title="See Examples of Stamped Concrete">Stamped Concrete</a></td>
+			</tr>
+			<tr>
+				<td><a href="faq.php" id="menus" title="See the FAQ">FAQ</a></td>
+			</tr>
+			<tr>
+				<td><a href="contactus.php" id="menus" title="Send Us A Note">Contact Us</a></td>
+			</tr>
+			<tr>
+				<td><a href="privacy.php" id="menus" title="See Our Privacy Policy">Privacy Policy</a></td>
+			</tr>
+		</table>
+		</td></tr>
+<!--
+			<tr>
+				<td align=center>
+					<br>
+					<a href="mailto:kimchatelain@hotmail.com"> 
+						<img src="images/email.gif" 
+							 alt="Email the Webmaster" 
+							 style="border-style: solid; border-width: 0"/>
+					</a>
+				</td>
+			</tr>
+-->
+		</table>
+		</td>
+		<td width="85%" align="left" valign="top">
+		<table border="0" width="97%" cellspacing="0" cellpadding="0">
+			<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+			<tr>
+				<td class="bodytext" width=8>
+					&nbsp;</td>
+				<td class="bodytext">
+<script>
+if ( dw_scrollObj.isSupported() ) {
+    //dw_writeStyleSheet('css/scroll.css');
+    dw_Event.add( window, 'load', init_dw_Scroll);
+}
+document.title = "Jesus Made This - Overlays";
+</script>
+<script>
+
+	function uploadimage()
+	{
+		$html = "<table><tr><td width=75></td><td>";
+		$html += "<form enctype=\"multipart/form-data\" method=\"POST\">\n";
+		$html += "<input type=hidden name=MAX_FILE_SIZE value=100000 />\n";
+		$html += "<span class=bodytext>Choose the image file you want to upload</span><br>";
+		$html += "<input size=60 class=privacy name=\"uploadedfile\" type=\"file\" /><br />\n";
+		$html += "<input class=bodytext type=\"submit\" name=\"uploadfile\" value=\"Upload File\" />\n";
+		$html += "</form>\n";
+		$html += "</td></tr></table>";
+		document.all.workingsection.innerHTML = $html;
+	}
+	function updatefullrecord()
+	{
+		var xml = "<root>";
+		xml += "<image_name>" + document.all.image_name.value + "</image_name>";
+		xml += "<category>" + document.all.category.value + "</category>";
+		xml += "<caption>" + document.all.caption.value + "</caption>";
+		if (document.all.active.value == "on")
+			xml += "<active>1</active>";
+		else
+			xml += "<active>0</active>";
+		xml += "<description>" + document.all.description.value + "</description></root>";
+		document.all.dbefore.innerText=xml;
+		if (!http)
+			var http = new ActiveXObject("Microsoft.XMLHTTP");
+		if (!xmlDoc)
+			var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
+		http.open("GET", "data.php?action=updatefullrecord&xml=" + xml, true);
+		http.send(null);
+		xmlDoc.async="false";
+		document.all.dafter.innerText = http.responseText;
+		xmlDoc.loadXML(http.responseText); 
+		$html = "<table><tr><td width=75></td><td>";
+		$html += xmlDoc.getElementsByTagName("result")[0].childNodes[0].nodeValue;
+		$html += "</td></tr></table>";
+		document.all.workingsection.innerHTML = $html;
+	}
+	function getfullrecord(image_name)
+	{
+		var xml = "<root><image_name>" + image_name + "</image_name></root>";
+		document.all.datafrm.src=data.php?action=getfullrecord&xml=" + xml;
+	}
+</script>
+<form method=post id=frm>
+<input type=hidden name=postpic>
+<input type=hidden name=cmd value="123">
+</form>
+<div id="scrollLinks">
+<table border=0>
+	<tr>
+		<td width=17></td>
+		<td>
+			<a class="mouseover_left" href="#"><img src="images/left_arrow.gif" alt="" border="0" style="border-style: solid; border-width: 0;" /></a>
+		</td>
+		<td>
+			<div id="wn">
+			    <div id="lyr1">
+				    <table id="t1" border="0" cellpadding="0" cellspacing="6" width=500>
+				        <tr>
+<td valign=top><a href="javascript:getfullrecord('images/overlay01.jpg');"><img src="images/overlay01.jpg" width="100" height="67" alt="Overlay 1" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay02.jpg');"><img src="images/overlay02.jpg" width="100" height="67" alt="Overlay 2" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay03.jpg');"><img src="images/overlay03.jpg" width="100" height="67" alt="Overlay 3" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay04.jpg');"><img src="images/overlay04.jpg" width="100" height="67" alt="Overlay 4" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay05.jpg');"><img src="images/overlay05.jpg" width="100" height="67" alt="Overlay 5" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay06.jpg');"><img src="images/overlay06.jpg" width="100" height="67" alt="Overlay 6" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay07.jpg');"><img src="images/overlay07.jpg" width="100" height="67" alt="Overlay 7" /></a></td><td valign=top><a href="javascript:getfullrecord('images/overlay08.jpg');"><img src="images/overlay08.jpg" width="100" height="67" alt="Overlay 8" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool01.jpg');"><img src="images/pool01.jpg" width="100" height="67" alt="Pool 1" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool02.jpg');"><img src="images/pool02.jpg" width="100" height="67" alt="Pool 2" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool03.jpg');"><img src="images/pool03.jpg" width="100" height="67" alt="Pool 3" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool04.jpg');"><img src="images/pool04.jpg" width="100" height="67" alt="Pool 4" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool05.jpg');"><img src="images/pool05.jpg" width="100" height="67" alt="Pool 5" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool06.jpg');"><img src="images/pool06.jpg" width="100" height="67" alt="Pool 6" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool07.jpg');"><img src="images/pool07.jpg" width="100" height="67" alt="Pool 7" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool08.jpg');"><img src="images/pool08.jpg" width="100" height="67" alt="Pool 8" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool09.jpg');"><img src="images/pool09.jpg" width="100" height="67" alt="Pool 9" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool10.jpg');"><img src="images/pool10.jpg" width="100" height="67" alt="Pool 10" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool11.jpg');"><img src="images/pool11.jpg" width="100" height="67" alt="Pool 11" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool12.jpg');"><img src="images/pool12.jpg" width="100" height="67" alt="Pool 12" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool13.jpg');"><img src="images/pool13.jpg" width="100" height="67" alt="Pool 13" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool14.jpg');"><img src="images/pool14.jpg" width="100" height="67" alt="Pool 14" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool15.jpg');"><img src="images/pool15.jpg" width="100" height="67" alt="Pool 15" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool16.jpg');"><img src="images/pool16.jpg" width="100" height="67" alt="Pool 16" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool17.jpg');"><img src="images/pool17.jpg" width="100" height="67" alt="Pool 17" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool18.jpg');"><img src="images/pool18.jpg" width="100" height="67" alt="Pool 18" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool19.jpg');"><img src="images/pool19.jpg" width="100" height="67" alt="Pool 19" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool20.jpg');"><img src="images/pool20.jpg" width="100" height="67" alt="Pool 20" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool21.jpg');"><img src="images/pool21.jpg" width="100" height="67" alt="Pool 21" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool22.jpg');"><img src="images/pool22.jpg" width="100" height="67" alt="Pool 22" /></a></td><td valign=top><a href="javascript:getfullrecord('images/pool23.jpg');"><img src="images/pool23.jpg" width="100" height="67" alt="Pool 23" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained01.jpg');"><img src="images/stained01.jpg" width="100" height="67" alt="Stained 1" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained02.jpg');"><img src="images/stained02.jpg" width="100" height="67" alt="Stained 2" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained03.jpg');"><img src="images/stained03.jpg" width="100" height="67" alt="Stained 3" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained04.jpg');"><img src="images/stained04.jpg" width="100" height="67" alt="Stained 4" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained05.jpg');"><img src="images/stained05.jpg" width="100" height="67" alt="Stained 5" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained06.jpg');"><img src="images/stained06.jpg" width="100" height="67" alt="Stained 6" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained07.jpg');"><img src="images/stained07.jpg" width="100" height="67" alt="Stained 7" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained08.jpg');"><img src="images/stained08.jpg" width="100" height="67" alt="Stained 8" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained09.jpg');"><img src="images/stained09.jpg" width="100" height="67" alt="Stained 9" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained10.jpg');"><img src="images/stained10.jpg" width="100" height="67" alt="Stained 10" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained11.jpg');"><img src="images/stained11.jpg" width="100" height="67" alt="Stained 11" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained12.jpg');"><img src="images/stained12.jpg" width="100" height="67" alt="Stained 12" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained13.jpg');"><img src="images/stained13.jpg" width="100" height="67" alt="Stained 13" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained14.jpg');"><img src="images/stained14.jpg" width="100" height="67" alt="Stained 14" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained15.jpg');"><img src="images/stained15.jpg" width="100" height="67" alt="Stained 15" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained16.jpg');"><img src="images/stained16.jpg" width="100" height="67" alt="Stained 16" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained17.jpg');"><img src="images/stained17.jpg" width="100" height="67" alt="Stained 17" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stained18.jpg');"><img src="images/stained18.jpg" width="100" height="67" alt="Stained 18" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped01.jpg');"><img src="images/stamped01.jpg" width="100" height="67" alt="Stamped 1" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped02.jpg');"><img src="images/stamped02.jpg" width="100" height="67" alt="Stamped 2" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped03.jpg');"><img src="images/stamped03.jpg" width="100" height="67" alt="Stamped 3" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped04.jpg');"><img src="images/stamped04.jpg" width="100" height="67" alt="Stamped 4" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped05.jpg');"><img src="images/stamped05.jpg" width="100" height="67" alt="Stamped 5" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped06.jpg');"><img src="images/stamped06.jpg" width="100" height="67" alt="Stamped 6" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped07.jpg');"><img src="images/stamped07.jpg" width="100" height="67" alt="Stamped 7" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped08.jpg');"><img src="images/stamped08.jpg" width="100" height="67" alt="Stamped 8" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped09.jpg');"><img src="images/stamped09.jpg" width="100" height="67" alt="Stamped 9" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped10.jpg');"><img src="images/stamped10.jpg" width="100" height="67" alt="Stamped 10" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped11.jpg');"><img src="images/stamped11.jpg" width="100" height="67" alt="Stamped 11" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped12.jpg');"><img src="images/stamped12.jpg" width="100" height="67" alt="Stamped 12" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped13.jpg');"><img src="images/stamped13.jpg" width="100" height="67" alt="Stamped 13" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped14.jpg');"><img src="images/stamped14.jpg" width="100" height="67" alt="Stamped 14" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped15.jpg');"><img src="images/stamped15.jpg" width="100" height="67" alt="Stamped 15" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped16.jpg');"><img src="images/stamped16.jpg" width="100" height="67" alt="Stamped 16" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped17.jpg');"><img src="images/stamped17.jpg" width="100" height="67" alt="Stamped 17" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped18.jpg');"><img src="images/stamped18.jpg" width="100" height="67" alt="Stamped 18" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped19.jpg');"><img src="images/stamped19.jpg" width="100" height="67" alt="Stamped 19" /></a></td><td valign=top><a href="javascript:getfullrecord('images/stamped20.jpg');"><img src="images/stamped20.jpg" width="100" height="67" alt="Stamped 20" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls01.jpg');"><img src="images/walls01.jpg" width="100" height="67" alt="Wall 1" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls02.jpg');"><img src="images/walls02.jpg" width="100" height="67" alt="Wall 2" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls03.jpg');"><img src="images/walls03.jpg" width="100" height="67" alt="Wall 3" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls04.jpg');"><img src="images/walls04.jpg" width="100" height="67" alt="Wall 4" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls05.jpg');"><img src="images/walls05.jpg" width="100" height="67" alt="Wall 5" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls06.jpg');"><img src="images/walls06.jpg" width="100" height="67" alt="Wall 6" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls07.jpg');"><img src="images/walls07.jpg" width="100" height="67" alt="Wall 7" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls08.jpg');"><img src="images/walls08.jpg" width="100" height="67" alt="Wall 8" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls09.jpg');"><img src="images/walls09.jpg" width="100" height="67" alt="Wall 9" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls10.jpg');"><img src="images/walls10.jpg" width="100" height="67" alt="Wall 10" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls11.jpg');"><img src="images/walls11.jpg" width="100" height="67" alt="Wall 11" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls12.jpg');"><img src="images/walls12.jpg" width="100" height="67" alt="Wall 12" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls13.jpg');"><img src="images/walls13.jpg" width="100" height="67" alt="Wall 13" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls14.jpg');"><img src="images/walls14.jpg" width="100" height="67" alt="Wall 14" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls15.jpg');"><img src="images/walls15.jpg" width="100" height="67" alt="Wall 15" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls16.jpg');"><img src="images/walls16.jpg" width="100" height="67" alt="Wall 16" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls17.jpg');"><img src="images/walls17.jpg" width="100" height="67" alt="Wall 17" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls18.jpg');"><img src="images/walls18.jpg" width="100" height="67" alt="Wall 18" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls19.jpg');"><img src="images/walls19.jpg" width="100" height="67" alt="Wall 19" /></a></td><td valign=top><a href="javascript:getfullrecord('images/walls20.jpg');"><img src="images/walls20.jpg" width="100" height="67" alt="Wall 20" /></a></td>				        </tr>
+				    </table>
+			    </div>
+			</div>  
+		</td>
+		<td>
+			<a class="mouseover_right" href="#"><img src="images/right_arrow.gif" alt="" border="0" style="border-style: solid; border-width: 0;" alt="Hover to Scroll" /></a>
+		</td>
+	</tr>
+</table>
+</div>
+<br> 
+<table><tr><td width=75></td><td>
+<iframe src="data.php" id=datafrm frameborder="0" border="0" cellspacing="0" width="650" marginwidth="0" marginheight="0" height="298">
+<br><br><a href="javascript:uploadimage();" id="menus" title="Upload New Image">Upload New Image</a></td></tr></table>
+				</td>
+			</tr>
+			</table>
+		</td>
+	</tr>
+	</table>
+
+</body>
+
+</html>
